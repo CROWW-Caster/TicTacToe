@@ -1,47 +1,47 @@
 export default [
     {
         id: 0,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 1,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 2,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 3,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 4,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 5,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 6,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 7,
-        on: true,
+        off: false,
         value: ''
     },
     {
         id: 8,
-        on: true,
+        off: false,
         value: ''
     }
 ]

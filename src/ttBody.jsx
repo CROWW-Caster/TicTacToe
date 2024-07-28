@@ -56,6 +56,14 @@ export default function App() {
 
     }
 
+    function endGame(){
+        setSquares(prevSquares => {
+            return prevSquares.map(square => {
+                return { ...square, off: true}
+            })
+        })
+    }
+
     
     function updateSquares(e){
         const player = Number(changer)
@@ -63,9 +71,9 @@ export default function App() {
         const value = players[player].name;
         
         
-        setSquares(prevSquare => {
-            return prevSquare.map(square => {
-                return square.id === Number(id) ? { ...square, on: false, value } : square
+        setSquares(prevSquares => {
+            return prevSquares.map(square => {
+                return square.id === Number(id) ? { ...square, off: true, value } : square
             })
         })
     }
@@ -80,19 +88,19 @@ export default function App() {
     function restartBtn(){
         setSquares(prevSquares => {
             return prevSquares.map(square => {
-                return { ...square, on: true, value: ''}
+                return { ...square, off: false, value: ''}
             })
         })
         setWinner('undefined')
         setLine('')
     }
-
     
     var palyerTurn = "Player " + `${players[Number(changer)].name}'s` + " turn"
     useEffect(() => checkWin(), [squares])
+    useEffect(() => endGame(), [winner])
 
     const squareElements = squares.map(square => {
-        return <Box key={square.id} id={square.id} value={square.value} handleClick={handleClick} />
+        return <Box key={square.id} id={square.id} disabled={square.off} value={square.value} handleClick={handleClick} />
     })
 
     return (
@@ -109,7 +117,7 @@ export default function App() {
                     {line === 6 && <div className={`bg-white h-1.5 md:h-2 w-[360px] md:w-[480px] absolute top-[142px] md:top-[188px] left-[-36px] md:left-[-48px] rounded rotate-45`}></div>}
                     {line === 7 && <div className={`bg-white h-1.5 md:h-2 w-[360px] md:w-[480px] absolute top-[142px] md:top-[188px] left-[-36px] md:left-[-48px] rounded rotate-225`}></div>}
                     {winner === "" && <div className='ease-in duration-1000 absolute rounded-xl border-2 font-extrabold font-serif text-[40px] md:text-6xl text-red-900 text-center top-[30%] left-[-18px] md:left-[-8px] bg-slate-500 w-[320px] md:w-[400px] h-24 py-[18px] md:h-32 md:py-[34px] px-2'>DRAW!!!</div>}
-                    {Number(winner) === winner && <div className='ease-in duration-[5000ms] absolute rounded-xl border-2 font-extrabold font-serif md:text-6xl sm:text-[40px] text-red-800 text-center top-[30%] md:left-[-53px] sm:left-[-40px] max-[639px]:left-[-20px] max-sm:text-4xl max-sm:w-[320px] bg-slate-500 md:w-[500px] w-[360px] h-32 sm:h-24 sm:py-[16px] max-sm:h-24 py-[34px] max-sm:py-[25px] px-4:px-4'>Player {players[Number(winner)].name} wins!</div>}
+                    {Number(winner) === winner && <div className='opacity-80 absolute rounded-xl border-2 font-extrabold font-serif md:text-6xl sm:text-[40px] text-red-800 text-center top-[38%] md:left-[-53px] sm:left-[-40px] max-[639px]:left-[-20px] max-sm:text-4xl max-sm:w-[320px] bg-slate-500 md:w-[500px] w-[360px] h-32 sm:h-24 sm:py-[16px] max-sm:h-24 py-[34px] max-sm:py-[25px] px-4:px-4'>Player {players[Number(winner)].name} wins!</div>}
                     {squareElements}
                 </div>
             </div><br /><br />
