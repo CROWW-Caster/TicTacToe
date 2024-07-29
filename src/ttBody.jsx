@@ -28,6 +28,7 @@ export default function App() {
         [0, 4, 8],
         [2, 4, 6]
     ]
+    let value;
     
 
     function checkWin(){
@@ -38,7 +39,7 @@ export default function App() {
             var z = winArray[2];
 
             if(squares[x].value !== '' && squares[y].value !== '' && squares[x].value === squares[y].value && squares[z].value !== '' && squares[y].value === squares[z].value){
-                let value = squares[x].value === "X" ? 1 : 0
+                value = squares[x].value === "X" ? 1 : 0
                 setWinner(value)
                 setLine(i)
 
@@ -46,6 +47,10 @@ export default function App() {
             else if(squares[0].on === false && squares[1].on === false && squares[2].on === false && squares[3].on === false && squares[4].on === false && squares[5].on === false && squares[6].on === false && squares[7].on === false && squares[8].on === false){
                 setWinner('')
             }
+        }
+        while(value === 1 || value === 0){
+            endGame()
+            break;
         }
     
     }
@@ -96,8 +101,7 @@ export default function App() {
     }
     
     var palyerTurn = "Player " + `${players[Number(changer)].name}'s` + " turn"
-    useEffect(() => checkWin(), [squares])
-    useEffect(() => endGame(), [winner])
+    useEffect(() => checkWin(), [changer])
 
     const squareElements = squares.map(square => {
         return <Box key={square.id} id={square.id} disabled={square.off} value={square.value} handleClick={handleClick} />
